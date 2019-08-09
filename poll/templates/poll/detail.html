@@ -1,0 +1,26 @@
+{% extends 'poll/header.html' %}
+
+
+{% block content %}
+	<h3>{{ question.question_text }}</h3>
+
+	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+	<form action="{% url 'poll:vote' question.id %}" method="post">
+	{% csrf_token %}
+	{% for choice in question.choice_set.all %}
+	    <p>
+	      <label>
+	         <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" required>
+	         <span>{{ choice.choice_text }}</span>
+	         <label for="choice{{ forloop.counter }}"></label><br>
+	      </label>
+	    </p> 
+	{% endfor %}
+	<input type="submit" value="Vote"  class="btn">
+	</form>
+<hr>  
+
+ {% include 'comment/comment.html' %}
+
+{% endblock %}

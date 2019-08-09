@@ -1,0 +1,14 @@
+{% extends 'main/header.html' %}
+
+{% block content %}
+   <br>
+   <form method="POST">
+      {% csrf_token %} <!--- To protect form---->
+      {{form.as_p}} <!--- Django ready form---->
+                    <!--- .as_p shfaq formen si paragraf tekst <p></p>---->
+     <button class="btn btn-outline-info" type="submit">Sign Up</button>
+   <!-- Shtojme Butonin Submit sepse Django nuk e paska te perfshire.  class="btn" Nga Framework i Materialize-->
+   </form>
+    
+    If you already have an account, <a href="/login"><strong>login</strong></a> instead.
+{% endblock %}

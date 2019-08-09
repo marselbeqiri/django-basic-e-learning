@@ -1,0 +1,35 @@
+  <footer class="page-footer grey darken-4">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                 <a href="/" class="brand-logo"><h5 class="white-text">Web Dev</h5></a>
+                <p class="grey-text text-lighten-4" id="43">Web Dev is an online learning and teaching site with over 100000 courses and 24 million students. Learn programming, marketing, data science and ...</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text"><strong>Links</strong></h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="/">Home</a></li>
+                  <li><a class="grey-text text-lighten-3" href="/poll">Poll</a></li>
+                  {% if user.is_authenticated %}
+                    <li><a class="grey-text text-lighten-3" href="/admin">{{user.username}}</a></li>
+                     
+                  {% else %} 
+                    <li><a class="grey-text text-lighten-3" href="/login">Login</a></li>
+                    <li><a class="grey-text text-lighten-3" href="/register">Register</a></li>
+                  {% endif %}  
+                  <li><a class="grey-text text-lighten-3" href="#!">About us</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Contact us</a></li>
+                 
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-copyright blue-grey darken-4">
+            <div class="container">
+            © 2019 Web Dev
+            <a class="grey-text text-lighten-4 right" href="#!">More</a>
+            </div>
+          </div>
+     </footer>
+            

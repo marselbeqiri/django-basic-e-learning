@@ -1,0 +1,16 @@
+ <nav>
+    <div class="nav-wrapper blue darken-3">
+      <a href="/" class="brand-logo">Web Dev</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/">Home</a></li>
+        <li><a href="/poll">Poll</a></li>
+        {% if user.is_authenticated %}
+          <li><a href="/admin">{{user.username}}</a></li>
+          <li><a href="/logout">Logout</a></li>
+        {% else %} 
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Register</a></li>
+        {% endif %}  
+      </ul>
+    </div>
+  </nav>

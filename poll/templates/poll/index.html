@@ -1,0 +1,35 @@
+{% extends 'poll/header.html' %}
+
+
+{% block content %}
+
+{% if latest_question_list %}
+
+
+  <div class="row">
+  	{% for question in latest_question_list %}
+    <div class="col s12 m6 l4">
+      <div class="card">
+         <div class="card-image">
+          <img src="/media/{{question.model_pic}}">
+            
+         </div>
+        <div class="card-content">
+            	<div class="card-title">{{question.question_text}}</div>
+				 	
+				<div class="card-action">
+         		 		<a href="{% url 'poll:detail' question.id %}">Vote Now!</a>
+       			 </div>
+			
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+{% else %}
+				<p>No Pollss available! </p>
+			{% endif %}	
+{% endblock %}
+
+

@@ -1,0 +1,28 @@
+{% extends 'poll/header.html' %}
+
+{% block content %}
+<h3>{{ question.question_text }}</h3>
+
+<ul class="collection" >
+{% for choice in question.choice_set.all %}
+    <li class="collection-item">{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }} -- {% widthratio total_poll 1 choice.votes %} %
+    	 <div class="progress">
+      		<div class="determinate" style="width: {% widthratio total_poll 1 choice.votes %}%"></div>
+  		 </div>   
+
+    </li>
+{% endfor %}
+</ul>
+
+ 
+
+<a class = "btn" href="{% url 'poll:detail' question.id %}">Vote again?</a>
+
+<div>
+
+<hr>
+
+{% include 'comment/comment.html' %}
+</div>	
+
+{% endblock %}

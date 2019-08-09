@@ -1,0 +1,77 @@
+ 
+ <!--------
+<div>
+   
+    
+    <a href="{% url 'comment:add_comment' question.id %}">Comments: {{ question.approved_comments.count }}</a>
+    <hr>
+
+    {% for comment in question.comments.all %}
+        {% if user.is_authenticated or comment.approved_comment %}
+        <div class="comment">
+            <div class="date">
+                <strong>{{ comment.author }}</strong>
+
+                {% if not comment.approved_comment %}
+                    <a class="btn btn-default" href="{% url 'comment:comment_remove' comment.id %}">Remove!<span class="glyphicon glyphicon-remove"></span></a>
+
+                    <a class="btn btn-default" href="{% url 'comment:comment_approve' comment.id %}">Approve!<span class="glyphicon glyphicon-ok"></span></a>
+                {% endif %}
+            </div>
+            {{ comment.created_date }}
+            <p>{{ comment.text|linebreaks }}</p>
+        </div>
+        {% endif %}
+    {% empty %}
+        <p>No comments here yet :(</p>
+    {% endfor %}
+</div>	
+
+ <a class="btn btn-default" href="{% url 'comment:add_comment' question.id %}">Add comment</a>--------> 
+ 
+ <!--------------------------------------------------------------------------------------------------> 
+ 
+ 
+
+ <div class="collection">
+    
+    <a href="{% url 'comment:add_comment' question.id %}" class="collection-item"><span class="new badge">{{ question.approved_comments.count }}</span>Comments:</a>
+     
+  </div>
+
+
+  <div class="col">
+        {% for comment in question.comments.all %}
+            {% if user.is_authenticated or comment.approved_comment %}
+            <div class="col s12">
+                <a href="", style="color:#000">
+                    <div class="card blue-grey darken-4">
+                        <div class="card-content white-text">
+                           <div class="card-title"><strong>{{ comment.author }}</strong></div>
+                             
+                       
+
+                               <div class="comment">
+                                <div class="date">
+                                      
+
+                                    {% if not comment.approved_comment %}
+                                        <a class="btn btn-default" href="{% url 'comment:comment_remove' comment.id %}">Remove!<span class="glyphicon glyphicon-remove"></span></a>
+
+                                        <a class="btn btn-default" href="{% url 'comment:comment_approve' comment.id %}">Approve!<span class="glyphicon glyphicon-ok"></span></a>
+                                    {% endif %}
+                                </div>
+                                 <p style="font-size: 70%;">{{ comment.created_date }}</p>
+                                <p>{{ comment.text|linebreaks }}</p>
+                                
+                                </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endif %}
+            {% empty %}
+        <p>No comments here yet :(</p>
+        {% endfor %}
+    </div>
+<a class="btn btn-default" href="{% url 'comment:add_comment' question.id %}">Add comment</a>
