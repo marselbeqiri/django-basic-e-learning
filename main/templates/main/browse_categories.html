@@ -1,0 +1,37 @@
+{% extends 'main/header.html' %}
+
+{% block content %}
+
+          <div class="col s12, m6, l6">
+            <ul class= "Kategori"style="text-align: left;"  >
+ 
+                  
+                 {% for categories in rendered %}
+                   <li> <a class="waves-effect waves-light btn  yellow darken-2" href="{% url 'main:single_slug' categories.category_slug %}">{{categories.tutorial_category}}</a></li> 
+                         <ul class = "Serite">      
+
+                        {% for courses in categories.get_courses %}
+                                <li></li><a class="black-text text-lighten-3" href="/">
+
+                                <strong>{{courses.tutorial_course}}</strong></li>
+                                 
+                                  <ol>
+                                {% for tutorials in courses.get_tutorials %}
+                                  <li><a class="" href="{% url 'main:single_slug' tutorials.tutorial_slug %}">{{tutorials.tutorial_title}}</li>
+                                {% endfor %}
+                                  </ol>
+
+                         {% endfor %}
+                          </ul>  
+                           
+                  {% endfor %}
+                       
+ 
+ 
+                 
+                </ul>
+
+
+
+        </div>
+{% endblock %}

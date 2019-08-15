@@ -58,6 +58,7 @@ TINYMCE_DEFAULT_CONFIG = {
 # Application definition
 
 INSTALLED_APPS = [
+ 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -67,7 +68,8 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'tinymce',
     'poll.apps.PollConfig',
-    'comment.apps.CommentConfig'
+    'comment.apps.CommentConfig',
+    'search.apps.SearchConfig',
 ]
 
 MIDDLEWARE = [
@@ -93,6 +95,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main.context_processors.categories_context',
             ],
         },
     },
@@ -149,7 +152,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/var/www/static/',
+     
+]
+ 
 
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media') 
 MEDIA_URL = '/media/'

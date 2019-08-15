@@ -1,0 +1,27 @@
+ <div class="hoverable">
+      <h5>Featured courses </h5>  
+     <div class="row  ">
+        {% for rand in random|slice:":4" %}
+            <div class="col s12 m6 l3 ">
+                <a href="{{rand.tutorial_slug}}", style="color:#000">
+                    <div class="card hoverable ">
+                        <div class="card-image">
+                             <img src="/media/{{rand.tutorial_pic}}">
+                        </div>     
+                        <div class="card-content ">
+                            <div class="card-title">{{rand.tutorial_title}}</div>
+                            <p>{{rand.tutorial_content|striptags|slice:':100'}}...</p>
+                        </div>
+                        <div class="card-action">
+                         <a href="#">Read More...</a>
+                         </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+
+
+    </div>  
+</div>
+
+

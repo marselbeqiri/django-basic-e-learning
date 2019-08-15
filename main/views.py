@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect # Udhezon browserin te na dergoje menjeher ne URL e specifikuar
 from django.http import HttpResponse
-from .models import Tutorial, TutorialCategory, TutorialSeries
+from .models import Tutorial, TutorialCourse, TutorialCategory
 # Bejme Import Format nga Django 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 # Qe te behet logini duhet te bejme import keto.. 
@@ -14,22 +14,28 @@ def single_slug(request, single_slug): # Mund te pranojme single_slug si variabe
 	categories = [c.category_slug for c in TutorialCategory.objects.all()] # c.category_slug : do marri vetem URL (slug) dhe do i ruaj ne liste. Pra shmang te dhena qe sna duhen
 	# c.category_slug => Bene te mudnur qe gjat ciklit for te zgjighen vetem category_slug ne objekte
 	if single_slug in categories:
-		matching_series = TutorialSeries.objects.filter(tutorial_category__category_slug=single_slug)
+		matching_courses = TutorialCourse.objects.filter(tutorial_category__category_slug=single_slug)
 		
-		series_urls = {}
-		for m in matching_series.all():
-			part_one = Tutorial.objects.filter(tutorial_series__tutorial_series=m.tutorial_series).earliest("tutorial_published")
-			series_urls[m] = part_one.tutorial_slug
+		courses_urls = {}
+		for m in matching_courses.all():
+			part_one = Tutorial.objects.filter(tutorial_course__tutorial_course=m.tutorial_course).earliest("tutorial_published")
+			courses_urls[m] = part_one.tutorial_slug
 		
-		return render(request,"main/category.html",{"part_ones": series_urls})
+		return render(request,"main/category.html",{"part_ones": courses_urls})
 
 	tutorials = [t.tutorial_slug for t in Tutorial.objects.all()]
+
 	if single_slug in tutorials:
-		this_tutorial = Tutorial.objects.get(tutorial_slug = single_slug)
-		
-		return render(request, 
-					  "main/tutorial.html",
-					  {"tutorial": this_tutorial})
+		this_tutorial = Tutorial.objects.get(tutorial_slug=single_slug)
+		tutorials_from_courses = Tutorial.objects.filter(tutorial_course__tutorial_course=this_tutorial.tutorial_course).order_by('tutorial_published')
+		this_tutorial_idx = list(tutorials_from_courses).index(this_tutorial)
+
+		return render(request=request,
+					template_name='main/tutorial.html',
+					context={"tutorial": this_tutorial,
+					"sidebar": tutorials_from_courses,
+					"this_tut_idx": this_tutorial_idx})
+	
 
 	return HttpResponse(f"{single_slug} does not correspond to anything!")	
 	
@@ -67,8 +73,10 @@ def register(request):
                   context={"form":form})
 
 
-def marsel(request): 	
-	return HttpResponse("<h1>Marsel Beqiri!</h1>")
+def browse(request): 	
+	return render(request=request,
+				  template_name="main/browse_categories.html",  
+				  context={"categories": TutorialCategory.objects.all})
 
 
 def logout_request(request):

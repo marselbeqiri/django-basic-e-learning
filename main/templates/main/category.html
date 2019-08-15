@@ -1,7 +1,7 @@
  {% extends 'main/header.html' %}
 
 {% block content %}
-
+    <h5>Courses {{single_slug}}</h5>
     <div class="row">
         {% for tut, partone in part_ones.items %}
 
@@ -9,9 +9,9 @@
                 <a href=" {% url 'main:single_slug' partone %}", style="color:#000">
                     <div class="card hoverable">
                         <div class="card-content">
-                            <div class="card-title">{{tut.tutorial_series}}</div>
+                            <div class="card-title">{{tut.tutorial_course}}</div>
                             <!--<p style="font-size:70%">Published {{tut.tutorial_published}}</p>-->
-                            <p>{{tut.series_summary}}</p>
+                            <p>{{tut.course_summary}}</p>
                         </div>
                     </div>
                 </a>

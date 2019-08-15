@@ -1,11 +1,37 @@
+
+    <div class="more">
+    
+      <div class="card  hoverable grey lighten-3 ">
+        <div class="row">
+        <div class="col l8 card-content black-text">
+          <span class="card-title"><strong>Join now!</strong></span>
+          <p>" I've been out of college for about two years, Lynda.com has changed my outlook on my career. Taking the foundational courses in marketing has helped me launch my career. "
+            –Jenny, Associate Marketing</p>
+        </div>
+        <div class="col l4 card-action" style=" position: relative; top: 40px;">
+          <a class="waves-effect waves-light btn" href="/browse/">Browse</a>
+          
+         
+          {% if user.is_authenticated %}
+                <a class="waves-effect waves-light btn blue" href="/poll/">Poll!</a>
+              {% else %} 
+                <a class="waves-effect waves-light btn blue" href="/register/">Register</a>
+              {% endif %} 
+        </div>
+      </div>
+     </div>
+  </div>
+
   <footer class="page-footer grey darken-4">
-          <div class="container">
+
+          <div class=" ">
             <div class="row">
-              <div class="col l6 s12">
+              <div class="col l5 s12"  >
                  <a href="/" class="brand-logo"><h5 class="white-text">Web Dev</h5></a>
                 <p class="grey-text text-lighten-4" id="43">Web Dev is an online learning and teaching site with over 100000 courses and 24 million students. Learn programming, marketing, data science and ...</p>
               </div>
-              <div class="col l4 offset-l2 s12">
+
+              <div class="col l3 s6"  >
                 <h5 class="white-text"><strong>Links</strong></h5>
                 <ul>
                   <li><a class="grey-text text-lighten-3" href="/">Home</a></li>
@@ -19,6 +45,37 @@
                   {% endif %}  
                   <li><a class="grey-text text-lighten-3" href="#!">About us</a></li>
                   <li><a class="grey-text text-lighten-3" href="#!">Contact us</a></li>
+                 
+                </ul>
+              </div>
+              <!------- Kategori Footer ----->
+               <div class="col l4 s6" >
+                <h5 class="white-text"><strong>Categories</strong></h5>
+                <ul class= "Kategori">
+ 
+                  
+                 {% for categories in rendered %}
+                   <li> <a class="waves-effect waves-light btn  grey darken-4" href="{% url 'main:single_slug' categories.category_slug %}">{{categories.tutorial_category}}</a></li> 
+                         <ul class = "Serite">      
+
+                        {% for series in categories.get_courses %}
+                                <li><a class="grey-text text-lighten-3" href="/">
+
+                                {{series.tutorial_course}}</li>
+                                 
+                                  <ol>
+                                {% for tutorials in series.get_tutorials %}
+                                  <li><a class="" href="{% url 'main:single_slug' tutorials.tutorial_slug %}">{{tutorials.tutorial_title}}</li>
+                                {% endfor %}
+                                  </ol>
+
+                         {% endfor %}
+                          </ul>  
+                           
+                  {% endfor %}
+                       
+ 
+ 
                  
                 </ul>
               </div>

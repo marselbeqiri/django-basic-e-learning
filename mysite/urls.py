@@ -27,9 +27,15 @@ urlpatterns = [
     path('poll/', include('poll.urls')),
 
     path('comment/', include('comment.urls')), # URL per app Comment
+
+    path('search/', include('search.urls')),
     
     path('', include('main.urls')),
-]
+] 
 
 if settings.DEBUG: # new
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    
+
+

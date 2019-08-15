@@ -1,0 +1,11 @@
+ 
+ 
+          <form action="{% url 'search:search' %}" method="GET" value="{{request.GET.q}}" >
+            <div class="input-field">
+
+              <input id="search" type="search" required placeholder="Search" value="{{request.GET.q}}" name="q" >
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+              <input type="submit" name="submit" value="Search" hidden/>
+            </div>
+          </form>

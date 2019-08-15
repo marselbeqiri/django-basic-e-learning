@@ -1,0 +1,89 @@
+{% extends 'main/header.html' %}
+
+
+{% block content %}
+
+ 
+{% if submitbutton == 'Search' and request.GET.q != '' %}
+<h3>Results for <b>{{ request.GET.q }}</b></h3>
+<br>
+<h4>Polls:</h4>
+<hr>
+
+
+{% if results %}
+
+<br/><br/>
+
+ 
+<!-----------------------Poll------------------------------------------------->
+
+  <div class="row">
+  {% for result in results %} 
+    <div class="col s12 m6 l4">
+      <div class="card">
+         <div class="card-image">
+          <img src="/media/{{result.model_pic}}">
+            
+         </div>
+        <div class="card-content">
+            	<div class="card-title">{{result.question_text}}</div>
+				 	
+				<div class="card-action">
+         		 		<a href="{% url 'poll:detail' result.id %}">Vote Now!</a>
+       			 </div>	
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+No search results for this query
+{% endif %}
+ 
+ 
+<br/>
+
+ 
+<!-----------------------Main------------------------------------------------->
+<h4>Courses:</h4>
+<hr>
+{% if results_main %}
+  <div class="row">
+  {% for result_main in results_main %} 
+    <div class="col s12 m6 l4">
+      <div class="card">
+         <div class="card-image">
+          <img src="/media/{{result_main.tutorial_pic}}">
+            
+         </div>
+        <div class="card-content">
+              <div class="card-title">{{result_main.tutorial_title}}</div>
+              <p>  {{ result_main.tutorial_content|striptags|slice:':100'}}... </p>
+        <div class="card-action">
+                <a href="{% url 'main:single_slug' result_main.tutorial_slug %} ">Read more!</a>
+             </div> 
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+ 
+{% else %}
+No search results for this query 
+{% endif %}
+{% endif %}
+
+<br><h5>Search Again:</h5>
+
+          <form action="{% url 'search:search' %}" method="GET" value="{{request.GET.q}}" >
+            <div class="input-field">
+
+              <input id="search" type="search" required   value="{{request.GET.q}}" name="q" >
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+              <input type="submit" name="submit" value="Search" hidden/>
+            </div>
+          </form>
+
+{% endblock %}

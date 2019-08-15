@@ -42,7 +42,7 @@
 
   <div class="col">
         {% for comment in question.comments.all %}
-            {% if user.is_authenticated or comment.approved_comment %}
+            {% if request.user.is_staff or comment.approved_comment %}
             <div class="col s12">
                 <a href="", style="color:#000">
                     <div class="card blue-grey darken-4">

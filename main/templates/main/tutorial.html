@@ -2,15 +2,129 @@
 
 {% block content %}
 
-    <div class="row">
+
+  <nav>
+    <div class="nav-wrapper blue">
+      <div class="col s12 " >
+        <a  href="/{{tutorial.tutorial_course.tutorial_category.category_slug}}" class="breadcrumb ">{{tutorial.tutorial_course.tutorial_category}}</a>
+
+        <a  href="" class="breadcrumb ">{{tutorial.tutorial_course}}</a>
+        <a  href="/{{tutorial.tutorial_slug}}" class="breadcrumb">{{tutorial}}</a>
+      </div>
+    </div>
+  </nav>
+
+<div class="row">
+
         <div class="col s12, m8, l8">
             <h3>{{tutorial.tutorial_title}}</h3>
-            <p style="font-size:70%">Published {{tutorial.tutorial_published}}</p>
+            <p style="font-size:70%">Published {{tutorial.tutorial_published}} , {{tutorial.author}}</p>
             {{tutorial.tutorial_content|safe}}
         </div>
+        
+        <div class="col s12 m4 l4"> 
+          <!---- Course Tutorials Sidebar----->
+          <h5>Course content</h5>
+            <ul class="collapsible popout">
+                {% for tutorial in sidebar %}
+                    {% if forloop.counter0 == this_tut_idx %}
+                        <li class="active">
+                            <div class="collapsible-header">{{tutorial.tutorial_title}}<br>(currently viewing)</div>
+                        </li>
+                    {% else %}
+                        <li>
+                            <div class="collapsible-header">{{tutorial.tutorial_title}}</div>
+                            <div class="collapsible-body">
+                                <p><a href="/{{tutorial.tutorial_slug}}"><button class="btn waves-effect waves-light right-align" style="background-color:yellow; color:black">Go</button></a></p>
+
+                            </div>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul> <!---- end----->
+            <!---- Category Yellow Sidebar-----><br><br>
+          <div class=" "> <h5>Categories</h5>
+            <ul class= "Kategori"style="text-align: center;"  >
+ 
+                  
+                 {% for categories in rendered %}
+                   <li> <a class="waves-effect waves-light btn  yellow darken-2 black-text"  href="{% url 'main:single_slug' categories.category_slug %}">{{categories.tutorial_category}}</a></li> 
+                         <ul class = "Serite">      
+
+                        {% for courses in categories.get_courses %}
+                                <li style="text-align: left;"><a class="black-text text-lighten-3" href="/">
+
+                                <strong>{{courses.tutorial_course}}</strong>
+                                </li>
+                                 
+                                  <ol>
+                                {% for tutorials in courses.get_tutorials %}
+                                  <li><a class="" href="{% url 'main:single_slug' tutorials.tutorial_slug %}">{{tutorials.tutorial_title}}</li>
+                                {% endfor %}
+                                  </ol>
+
+                         {% endfor %}
+                        </ul>  
+                           
+                  {% endfor %}
+                 
+            </ul>
+          </div><!---- end----->
+
+        </div>
+
     </div>
+
+
+
+   
 {% include 'comment/main_comment.html' %}
 
 {% endblock %}
 
+<!--------
 <p>Marsel</p>
+
+ 
+ <div class="row">
+        <div class="col s10, m8, l8">
+            <h3>{{tutorial.tutorial_title}}</h3>
+            <p style="font-size:70%">Published {{tutorial.tutorial_published}}</p>
+            {{tutorial.tutorial_content|safe}}
+        </div>
+
+         <div class="col s2, m4, l4">
+            <ul class= "Kategori"style="text-align: center;"  >
+ 
+                  
+                 {% for categories in rendered %}
+                   <li> <a class="waves-effect waves-light btn  yellow darken-2 black-text"  href="{% url 'main:single_slug' categories.category_slug %}">{{categories.tutorial_category}}</a></li> 
+                         <ul class = "Serite">      
+
+                        {% for series in categories.get_series %}
+                                <li style="text-align: left;"><a class="black-text text-lighten-3" href="/">
+
+                                <strong>{{series.tutorial_series}}</strong>
+                                </li>
+                                 
+                                  <ol>
+                                {% for tutorials in series.get_tutorials %}
+                                  <li><a class="" href="{% url 'main:single_slug' tutorials.tutorial_slug %}">{{tutorials.tutorial_title}}</li>
+                                {% endfor %}
+                                  </ol>
+
+                         {% endfor %}
+                        </ul>  
+                           
+                  {% endfor %}
+                 
+            </ul>
+
+
+
+        </div>
+
+
+
+
+    </div> ----->

@@ -2,6 +2,10 @@
     <div class="nav-wrapper blue darken-3">
       <a href="/" class="brand-logo">Web Dev</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
+                {% include 'search/main_nav_drop.html' %}
+           
+        <li> {% include 'search/search.html' %} </li>
+
         <li><a href="/">Home</a></li>
         <li><a href="/poll">Poll</a></li>
         {% if user.is_authenticated %}
@@ -14,3 +18,28 @@
       </ul>
     </div>
   </nav>
+
+<!-------Big Picture--------->
+{% if request.get_full_path == "/" or request.get_full_path == "/register/" or request.get_full_path == "/login/" or request.get_full_path == "/poll/" %}
+          <div class="bigpic">
+          <div class="bigletters">
+            <span class="title" ><h2>Master anything</h2></span>
+            <p>Get the siklls to get ahead </p>
+            <a class="waves-effect waves-light btn yellow darken-2"  id="buton"
+              href="
+              {% if user.is_authenticated %}
+                /browse/
+              {% else %} 
+                /register/
+              {% endif %} 
+              "
+            ><i style="color: white;" class="material-icons right">cloud</i> 
+              {% if user.is_authenticated %}
+                Browse!
+              {% else %} 
+                Start now! 
+              {% endif %} 
+            </a>
+          </div>
+        </div>
+  {% endif %}       

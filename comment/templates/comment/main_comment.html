@@ -33,12 +33,12 @@
     <a href="{% url 'comment:add_comment_main' tutorial.tutorial_slug %}" class="collection-item"><span class="new badge">{{ tutorial.approved_comments.count }}</span>Comments:</a>
      
   </div>
-
+   
 
   <div class="col">
         {% for comment in tutorial.comments.all %}
-            {% if user.is_authenticated or comment.approved_comment %}
-            <div class="col s12">
+            {% if request.user.is_staff or comment.approved_comment %}
+            <div class="col s12 m8 l6">
                 <a href="", style="color:#000">
                     <div class="card blue-grey darken-4">
                         <div class="card-content white-text">
@@ -70,4 +70,5 @@
         {% endfor %}
     </div>
 <a class="btn btn-default" href="{% url 'comment:add_comment_main' tutorial.tutorial_slug %}">Add comment</a>
+<hr>
  

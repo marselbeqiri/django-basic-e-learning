@@ -1,0 +1,52 @@
+ 
+ 
+  <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>           
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js">
+  </script>
+
+<!-- Dropdown Structure -->
+
+        <!-- Dropdown Trigger -->
+        <li>
+          <a class="dropdown-button" href="#!" data-activates="dropdown1">Categories<i class="material-icons right" data-beloworigin="true">arrow_drop_down</i>
+          </a>
+        </li>
+        
+     
+
+        <!-- Dropdown 1 -->
+    <ul id="dropdown1" class="dropdown-content dropdown-nested">
+      
+      {% for cate in rendered %}
+      <li><a href="{% url 'main:single_slug' cate.category_slug %}", style="color:#000">
+      {{cate.tutorial_category}}</li>
+
+      {% endfor %}
+
+
+    <ul id='dropdown2' class='dropdown-content dropdown-nested'>
+         
+      {% for question in rendered_question %}
+      <li><a href="{% url 'poll:detail' question.id %}", style="color:#000">
+      {{question.question_text}}</li>
+      {% endfor %} 
+
+    </ul>   
+
+
+      <li><a class='dropdown-button' href='#' data-activates='dropdown2' data-hover="hover" data-alignment="left">Poll<span class="right-triangle">&#9656;</span></a></li>
+
+
+      <li class="divider"></li>
+    
+    </ul>
+
+       <!-- Dropdown 1 -->
+
+ 
+ 
+ 
+
+
+ 
+
